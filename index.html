@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Card Explorer with API Pagination</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pokémon Card Explorer</h1>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search Pokémon"
+        oninput="searchPokemon()"
+      />
+      <div id="pokemonGrid" class="pokemon-grid"></div>
+      <div class="pagination">
+        <button onclick="changePage(-1)" id="prevButton">Previous</button>
+        <span id="pageInfo"></span>
+        <button onclick="changePage(1)" id="nextButton">Next</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
