@@ -1,10 +1,10 @@
-const pokemonPerPage = 20;
+const moviePerPage = 20;
 let currentPage = 1;
 let searchQuery = "";
 
 // Fetch and display movies for the current page and search query
-async function fetchPokemonList() {
-  const offset = (currentPage - 1) * pokemonPerPage;
+async function fetchMovieList() {
+  const offset = (currentPage - 1) * moviePerPage;
   let apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=482c09f3a4a9fe485dce706e8d645d2f&page=${currentPage}`; // added &page=${currentPage}
 
   // Modify API URL if there's a search query
@@ -25,30 +25,30 @@ async function fetchPokemonList() {
     // Handle search results separately if a search query is present
     if (searchQuery) {
       // Show only single movie details for search
-      displaySinglePokemon(data.results[0]); // added .results[0]
+      displaySingleMovie(data.results[0]); // added .results[0]
     } else {
       // const data = await response.json();
-      displayPokemonCards(data.results);
+      displayMovieCards(data.results);
       updatePageInfo();
     }
   } catch (error) {
     document.getElementById(
-      "pokemonGrid"
+      "movieGrid"
     ).innerHTML = `<p>${error.message}</p>`;
   }
 }
 
-// Display multiple Pokémon as cards in the grid
-function displayPokemonCards(movieList) { // added new name assigned for displayPokemonCards function to represent the list of movies 
-  const gridContainer = document.getElementById("pokemonGrid");
+// Display multiple Movie as cards in the grid
+function displayMovieCards(movieList) { // added new name assigned for displayMovieCards function to represent the list of movies 
+  const gridContainer = document.getElementById("movieGrid");
   gridContainer.innerHTML = ""; // Clear the grid
 
   movieList.forEach((movie) => { // movie as a temporary name
     const card = document.createElement("div");
-    card.className = "pokemon-card";
+    card.className = "movie-card";
 
     // Fetch and display individual Pokémon details
-    //fetch(pokemon.url)
+    //fetch(movie.url)
       //.then((response) => response.json())
       //.then((data) => { no need
     card.innerHTML = `
@@ -68,20 +68,20 @@ function displayPokemonCards(movieList) { // added new name assigned for display
 //}
 
 // Display a single movie when searched by title
-function displaySinglePokemon(movie) {
-  const gridContainer = document.getElementById("pokemonGrid");
+function displaySingleMovie(movie) {
+  const gridContainer = document.getElementById("movieGrid");
   gridContainer.innerHTML = ""; // Clear the grid
 
   const card = document.createElement("div");
-  card.className = "pokemon-card";
+  card.className = "movie-card";
   card.innerHTML = `
     <h3>${movie.title}</h3>
     <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
     <p>Popularity: ${movie.popularity}</p>
-    <p> Overview: ${movie.overview}</p> 
+    <p>Overview: ${movie.overview}</p> 
   `; // type.type.title
-    // pokemon.types.map((type) => popularity)
-    // pokemon.poster_path
+    // movie.types.map((type) => popularity)
+    // movie.poster_path
 
   gridContainer.appendChild(card);
 
@@ -94,7 +94,7 @@ function displaySinglePokemon(movie) {
 // Handle page change
 function changePage(direction) {
   currentPage += direction;
-  fetchPokemonList();
+  fetchMovieList();
 }
 
 // Update the page info text
@@ -107,12 +107,12 @@ function updatePageInfo() {
   document.getElementById("nextButton").disabled = searchQuery !== "";
 }
 
-// Search Pokémon by title
-function searchPokemon() {
+// Search Movie by title
+function searchMovie() {
   searchQuery = document.getElementById("searchInput").value.trim();
   currentPage = 1; // Reset to the first page of search results
-  fetchPokemonList();
+  fetchMovieList();
 }
 
 // Initialize the app
-fetchPokemonList();
+fetchMovieList();

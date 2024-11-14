@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Dashboard</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="details.html" />
+    <a href="details.html"> </a>
   </head>
   <body>
     <div class="container">
@@ -14,9 +14,9 @@
         type="text"
         id="searchInput"
         placeholder="Search for a Movie"
-        oninput="searchPokemon()"
+        oninput="searchMovie()"
       />
-      <div id="pokemonGrid" class="pokemon-grid"></div>
+      <div id="movieGrid" class="movie-grid"></div> <!-- id for js, class for css-->
       <div class="pagination">
         <button onclick="changePage(-1)" id="prevButton">Previous</button>
         <span id="pageInfo"></span>
