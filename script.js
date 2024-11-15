@@ -32,9 +32,9 @@ async function fetchMovieList() {
       updatePageInfo();
     }
   } catch (error) {
-    document.getElementById(
-      "movieGrid"
-    ).innerHTML = `<p>${error.message}</p>`;
+    document.getElementById("movieGrid").innerHTML = `<p>Movie not found</p>`;
+    // document.getElementById("movieGrid").innerHTML = `<p>${error.message}</p>`;
+    // throw new Error("Movie not found");
   }
 }
 
