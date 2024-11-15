@@ -9,7 +9,7 @@ async function fetchMovieList() {
 
   // Modify API URL if there's a search query
   if (searchQuery) {
-    apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=482c09f3a4a9fe485dce706e8d645d2f&query=${searchQuery.toLowerCase()}`;
+    apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=482c09f3a4a9fe485dce706e8d645d2f&query=${searchQuery.toLowerCase()}&page=${currentPage}`; //added pagination &page=${currentPage} for searchQuery, to show more than one page after searching
     // https://api.themoviedb.org/3/search/movie
   }
 
@@ -24,8 +24,25 @@ async function fetchMovieList() {
 
     // Handle search results separately if a search query is present
     if (searchQuery) {
-      // Show only single movie details for search
-      displaySingleMovie(data.results[0]); // added .results[0]
+      // Show all movies matching the search query, NOT Show only single movie details for search
+      ///////////displayMovieCards(data.results);
+      // replaced displaySingleMovie to displaySearchResults
+      // displaySingleMovie(data.results[0]); //data.results[0] shows first result from the search
+
+      // document.getElementById("prevButton").disabled = true;
+      // document.getElementById("nextButton").disabled = true;
+      // document.getElementById("pageInfo").textContent = "Search Results";
+
+      if (data.results.length === 0) {
+        // No results found for the search query
+        document.getElementById("movieGrid").innerHTML = `<p>Movie not found</p>`;
+      } else {
+        // Display matching search results
+        displayMovieCards(data.results);
+        updatePageInfo();
+      }
+
+      updatePageInfo();
     } else {
       // const data = await response.json();
       displayMovieCards(data.results);
@@ -47,7 +64,7 @@ function displayMovieCards(movieList) { // added new name assigned for displayMo
     const card = document.createElement("div");
     card.className = "movie-card";
 
-    // Fetch and display individual Pokémon details
+    // Fetch and display individual Movie details
     //fetch(movie.url)
       //.then((response) => response.json())
       //.then((data) => { no need
@@ -55,7 +72,7 @@ function displayMovieCards(movieList) { // added new name assigned for displayMo
       <h3>${movie.title}</h3>
       <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"> 
       <p>Popularity: ${movie.popularity}</p>
-    `; //lala
+    `; 
     
     //.catch((error) =>
       //console.error("Error fetching Movie details:", error)
@@ -67,29 +84,34 @@ function displayMovieCards(movieList) { // added new name assigned for displayMo
 //);
 //}
 
-// Display a single movie when searched by title
-function displaySingleMovie(movie) {
-  const gridContainer = document.getElementById("movieGrid");
-  gridContainer.innerHTML = ""; // Clear the grid
+// Display movies when searched by title
+///function displaySearchResults(movie) {
+  ///const gridContainer = document.getElementById("movieGrid");
+  ///gridContainer.innerHTML = ""; // Clear the grid
 
-  const card = document.createElement("div");
-  card.className = "movie-card";
-  card.innerHTML = `
-    <h3>${movie.title}</h3>
-    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-    <p>Popularity: ${movie.popularity}</p>
-    <p>Overview: ${movie.overview}</p> 
-  `; // type.type.title
+  // const card = document.createElement("div"); this is replaced to movieList.forEach 
+  ///movieList.forEach((movie) => { 
+    ///const card = document.createElement("div");
+    ///card.className = "movie-card";
+
+    ///card.innerHTML = `
+      ///<h3>${movie.title}</h3>
+      ///<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+      ///<p>Popularity: ${movie.popularity}</p>
+    ///`; 
+    // <p>Overview: ${movie.overview}</p>
+    // type.type.title
     // movie.types.map((type) => popularity)
     // movie.poster_path
 
-  gridContainer.appendChild(card);
+    ///gridContainer.appendChild(card);
 
-  // Disable pagination buttons since we're only showing a single Pokémon
-  document.getElementById("prevButton").disabled = true;
-  document.getElementById("nextButton").disabled = true;
-  document.getElementById("pageInfo").textContent = "Search Result";
-}
+    // Disable pagination buttons since we're only showing a single Movie
+    // document.getElementById("prevButton").disabled = true;
+    // document.getElementById("nextButton").disabled = true;
+    // document.getElementById("pageInfo").textContent = "Search Result";
+  ///});
+///}
 
 // Handle page change
 function changePage(direction) {
@@ -103,8 +125,8 @@ function updatePageInfo() {
   pageInfo.textContent = `Page ${currentPage}`;
 
   // Enable or disable buttons based on the current page and search status
-  document.getElementById("prevButton").disabled = currentPage === 1;
-  document.getElementById("nextButton").disabled = searchQuery !== "";
+  // document.getElementById("prevButton").disabled = currentPage === 1;
+  // document.getElementById("nextButton").disabled = searchQuery !== "";
 }
 
 // Search Movie by title
