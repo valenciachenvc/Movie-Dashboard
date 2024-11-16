@@ -13,6 +13,13 @@ async function fetchMovieList() {
     // https://api.themoviedb.org/3/search/movie
   }
 
+  //If user is in page 1, disable prev button pagination
+  if (currentPage === 1) {
+    document.getElementById("prevButton").disabled = true;
+  } else {
+    document.getElementById("prevButton").disabled = false;
+  }
+
   try {
     const response = await fetch(apiUrl);
 
@@ -122,7 +129,7 @@ function changePage(direction) {
 // Update the page info text
 function updatePageInfo() {
   const pageInfo = document.getElementById("pageInfo");
-  pageInfo.textContent = `Page ${currentPage}`;
+  pageInfo.textContent = `Page ${currentPage}`; 
 
   // Enable or disable buttons based on the current page and search status
   // document.getElementById("prevButton").disabled = currentPage === 1;
