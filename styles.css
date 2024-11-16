@@ -69,6 +69,17 @@ input[type="text"] {
   color: #555;
 }
 
+.movie-link {
+  text-decoration: none; /* Removes the underline */
+  color: inherit;        /* Inherits the text color from the parent */
+  display: block;        /* Makes the entire card clickable */
+}
+
+.movie-link h3,
+.movie-link p {
+  margin: 0;             /* Optional: remove any default margins */
+}
+
 .pagination {
   display: flex;
   justify-content: center;

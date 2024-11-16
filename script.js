@@ -29,13 +29,7 @@ async function fetchMovieList() {
     // Handle search results separately if a search query is present
     if (searchQuery) {
       // Show all movies matching the search query, NOT Show only single movie details for search
-      ///////////displayMovieCards(data.results);
-      // replaced displaySingleMovie to displaySearchResults
       // displaySingleMovie(data.results[0]); //data.results[0] shows first result from the search
-
-      // document.getElementById("prevButton").disabled = true;
-      // document.getElementById("nextButton").disabled = true;
-      // document.getElementById("pageInfo").textContent = "Search Results";
 
       if (data.results.length === 0) {
         // No results found for the search query
@@ -64,7 +58,36 @@ async function fetchMovieList() {
   }
 }
 
-//If user is in page 1, disable prev button pagination
+// Display multiple Movie as cards in the grid
+function displayMovieCards(movieList) { // added new name assigned for displayMovieCards function to represent the list of movies 
+  const gridContainer = document.getElementById("movieGrid");
+  gridContainer.innerHTML = ""; // Clear the grid
+
+  movieList.forEach((movie) => { // movie as a temporary name
+    const card = document.createElement("div");
+    card.className = "movie-card";
+
+    // Fetch and display individual Movie details
+    //fetch(movie.url)
+      //.then((response) => response.json())
+      //.then((data) => { no need
+    card.innerHTML = `
+      <a href = "details.html?movieId=${movie.id}" class = "movie-link"> 
+        <h3>${movie.title}</h3>
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"> 
+        <p>Popularity: ${movie.popularity}</p>
+      </a>
+    `; // added a href, so movie card are clickable to the details page
+    
+    //.catch((error) =>
+      //console.error("Error fetching Movie details:", error)
+    //);
+
+    gridContainer.appendChild(card);
+  });
+}
+
+// Enable or disable buttons based on the current page
 function updatePageButton() {
   if (currentPage === 1 && totalPages === 1) { // when movie search not found
     document.getElementById("prevButton").disabled = true;
@@ -80,64 +103,6 @@ function updatePageButton() {
     document.getElementById("nextButton").disabled = false;
   }
 }
-
-// Display multiple Movie as cards in the grid
-function displayMovieCards(movieList) { // added new name assigned for displayMovieCards function to represent the list of movies 
-  const gridContainer = document.getElementById("movieGrid");
-  gridContainer.innerHTML = ""; // Clear the grid
-
-  movieList.forEach((movie) => { // movie as a temporary name
-    const card = document.createElement("div");
-    card.className = "movie-card";
-
-    // Fetch and display individual Movie details
-    //fetch(movie.url)
-      //.then((response) => response.json())
-      //.then((data) => { no need
-    card.innerHTML = `
-      <h3>${movie.title}</h3>
-      <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"> 
-      <p>Popularity: ${movie.popularity}</p>
-    `; 
-    
-    //.catch((error) =>
-      //console.error("Error fetching Movie details:", error)
-    //);
-
-    gridContainer.appendChild(card);
-  });
-}
-//);
-//}
-
-// Display movies when searched by title
-///function displaySearchResults(movie) {
-  ///const gridContainer = document.getElementById("movieGrid");
-  ///gridContainer.innerHTML = ""; // Clear the grid
-
-  // const card = document.createElement("div"); this is replaced to movieList.forEach 
-  ///movieList.forEach((movie) => { 
-    ///const card = document.createElement("div");
-    ///card.className = "movie-card";
-
-    ///card.innerHTML = `
-      ///<h3>${movie.title}</h3>
-      ///<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-      ///<p>Popularity: ${movie.popularity}</p>
-    ///`; 
-    // <p>Overview: ${movie.overview}</p>
-    // type.type.title
-    // movie.types.map((type) => popularity)
-    // movie.poster_path
-
-    ///gridContainer.appendChild(card);
-
-    // Disable pagination buttons since we're only showing a single Movie
-    // document.getElementById("prevButton").disabled = true;
-    // document.getElementById("nextButton").disabled = true;
-    // document.getElementById("pageInfo").textContent = "Search Result";
-  ///});
-///}
 
 // Handle page change
 function changePage(direction) {

@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Details</title>
     <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+    <a href="index.html"> </a>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="movieTitle">Loading...</h1>
+      <img id="moviePoster" src="" alt="Movie Poster">
+        <p id="movieOverview"></p>
+        <p><strong>Release Date:</strong> <span id="releaseDate"></span></p>
+        <a href="index.html">Back to Movie List</a>
 
+      <div id="movieGrid" class="movie-grid"></div> <!--will be used to show recommendations-->
+    </div>
     <script src="details.js"></script>
-</body>
+  </body>
 </html>
