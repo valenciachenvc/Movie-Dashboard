@@ -101,3 +101,8 @@ input[type="text"] {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+#moviePoster {
+  width: 200px;
+  height: auto;
+}

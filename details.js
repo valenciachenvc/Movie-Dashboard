@@ -3,6 +3,7 @@ const movieId = new URLSearchParams(window.location.search).get("movieId");
 // Fetch and display movies for the current page and search query
 async function fetchMovieDetails() {
   let apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=482c09f3a4a9fe485dce706e8d645d2f`;
+  //const genres = movieDetails.genres.map((genre) => genre.name).join(", ");
 
   try {
     const response = await fetch(apiUrl);
@@ -14,10 +15,11 @@ async function fetchMovieDetails() {
     const data = await response.json();
 
     document.getElementById("movieTitle").textContent = data.title;
-    document.getElementById("moviePoster").src =
-      `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+    document.getElementById("moviePoster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
     document.getElementById("movieOverview").textContent = data.overview;
     document.getElementById("releaseDate").textContent = data.release_date;
+    document.getElementById("rating").textContent = data.popularity;
+    //document.getElementById("genres").textContent = data.genres;
   } catch (error) {
     console.error("Error:", error);
     document.body.innerHTML = `<p>Failed to load movie details.</p>`;
