@@ -1,5 +1,6 @@
 const moviePerPage = 20;
 let currentPage = 1;
+let totalPages = 1;
 let searchQuery = "";
 
 // Fetch and display movies for the current page and search query
@@ -13,13 +14,6 @@ async function fetchMovieList() {
     // https://api.themoviedb.org/3/search/movie
   }
 
-  //If user is in page 1, disable prev button pagination
-  if (currentPage === 1) {
-    document.getElementById("prevButton").disabled = true;
-  } else {
-    document.getElementById("prevButton").disabled = false;
-  }
-
   try {
     const response = await fetch(apiUrl);
 
@@ -28,6 +22,9 @@ async function fetchMovieList() {
     } // moved the if function fron the if searchQuery to outside the parent
 
     const data = await response.json(); //moved the if function fron the if searchQuery to outside the parent
+
+    // Update the totalPages variable
+    totalPages = data.total_pages;
 
     // Handle search results separately if a search query is present
     if (searchQuery) {
@@ -43,22 +40,44 @@ async function fetchMovieList() {
       if (data.results.length === 0) {
         // No results found for the search query
         document.getElementById("movieGrid").innerHTML = `<p>Movie not found</p>`;
+        document.getElementById("prevButton").disabled = true;
+        document.getElementById("nextButton").disabled = true;
       } else {
         // Display matching search results
         displayMovieCards(data.results);
         updatePageInfo();
+        updatePageButton();
       }
 
       updatePageInfo();
+      updatePageButton();
     } else {
       // const data = await response.json();
       displayMovieCards(data.results);
       updatePageInfo();
+      updatePageButton();
     }
   } catch (error) {
     document.getElementById("movieGrid").innerHTML = `<p>Movie not found</p>`;
     // document.getElementById("movieGrid").innerHTML = `<p>${error.message}</p>`;
     // throw new Error("Movie not found");
+  }
+}
+
+//If user is in page 1, disable prev button pagination
+function updatePageButton() {
+  if (currentPage === 1 && totalPages === 1) { // when movie search not found
+    document.getElementById("prevButton").disabled = true;
+    document.getElementById("nextButton").disabled = true;
+  } else if (currentPage === 1) {
+    document.getElementById("prevButton").disabled = true;
+    document.getElementById("nextButton").disabled = false;
+  } else if (currentPage === totalPages) {
+    document.getElementById("prevButton").disabled = false;
+    document.getElementById("nextButton").disabled = true;
+  } else {
+    document.getElementById("prevButton").disabled = false;
+    document.getElementById("nextButton").disabled = false;
   }
 }
 
@@ -129,7 +148,7 @@ function changePage(direction) {
 // Update the page info text
 function updatePageInfo() {
   const pageInfo = document.getElementById("pageInfo");
-  pageInfo.textContent = `Page ${currentPage}`; 
+  pageInfo.textContent = `Page ${currentPage} of ${totalPages}`; 
 
   // Enable or disable buttons based on the current page and search status
   // document.getElementById("prevButton").disabled = currentPage === 1;
