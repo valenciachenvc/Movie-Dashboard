@@ -26,9 +26,10 @@ async function fetchMovieDetails() {
   }
 }
 
+let currentPage = 1;
 // Fetch and display recommended movies for the current movie
 async function fetchMovieList() {
-    let apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=482c09f3a4a9fe485dce706e8d645d2f&page=${currentPage}`;
+    let apiUrl = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=482c09f3a4a9fe485dce706e8d645d2f&page=${currentPage}`;
   
     try {
       const response = await fetch(apiUrl);
@@ -41,8 +42,8 @@ async function fetchMovieList() {
   
     
     displayMovieCards(data.results);
-    updatePageInfo();
-    updatePageButton();
+    // updatePageInfo(); lol this is not supposed to be here loll this has been the error the whole time
+    // updatePageButton(); RAHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 
     } catch (error) {
       document.getElementById("movieGrid").innerHTML = `<p>Movie not found</p>`;
