@@ -28,7 +28,7 @@ async function fetchGenreList() {
 }
 
 
-// Fetch and display movies for the current page and search query
+// Fetch and display movies details
 async function fetchMovieDetails() {
   let apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=482c09f3a4a9fe485dce706e8d645d2f`;
   //const genres = movieDetails.genres.map((genre) => genre.name).join(", ");
@@ -58,6 +58,50 @@ async function fetchMovieDetails() {
   } catch (error) {
     console.error("Error:", error);
     document.body.innerHTML = `<p>Failed to load movie details.</p>`;
+  }
+}
+
+// Fetch and display movie credits (cast and crew)
+async function fetchMovieCredits() {
+  let apiUrl = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=482c09f3a4a9fe485dce706e8d645d2f`;
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch movie credits");
+    }
+
+    const data = await response.json();
+
+    // Display cast
+    const cast = data.cast.slice(0, 5); // Show top 5 cast members (adjust as needed)
+    const castList = document.getElementById("cast");
+    cast.forEach((actor) => {
+      const castItem = document.createElement("div");
+      castItem.classList.add("cast-member");
+      castItem.innerHTML = `
+        <img src="https://image.tmdb.org/t/p/w200${actor.profile_path}" alt="${actor.name}">
+        <p>${actor.name} as ${actor.character}</p>
+      `;
+      castList.appendChild(castItem);
+    });
+
+    // Display crew (e.g., director)
+    const crew = data.crew.filter((member) => member.job === "Director"); // Change job as needed
+    const crewList = document.getElementById("crew");
+    crew.forEach((member) => {
+      const crewItem = document.createElement("div");
+      crewItem.classList.add("crew-member");
+      crewItem.innerHTML = `
+        <p>${member.name} - ${member.job}</p>
+      `;
+      crewList.appendChild(crewItem);
+    });
+
+  } catch (error) {
+    console.error("Error:", error);
+    document.getElementById("movieCredits").innerHTML = `<p>Failed to load movie credits.</p>`;
   }
 }
 
@@ -113,4 +157,5 @@ function displayMovieCards(movieList) {
 // Initialize the app
 fetchGenreList(); // Fetch genre list first
 fetchMovieDetails();
+fetchMovieCredits()
 fetchMovieList();
