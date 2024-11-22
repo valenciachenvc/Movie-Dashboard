@@ -1,5 +1,33 @@
 const movieId = new URLSearchParams(window.location.search).get("movieId");
 
+let genreList = {}; // To store the mapping of genre IDs to names
+
+// Fetch genre list and store it
+async function fetchGenreList() {
+  const apiUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=482c09f3a4a9fe485dce706e8d645d2f`;
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch genre list");
+    }
+
+    const data = await response.json();
+    genreList = data.genres.reduce((acc, genre) => { 
+      acc[genre.id] = genre.name; // Map genre ID to genre name
+      return acc;
+    }, {});
+    // data.genre takes data from API, with two properties of id and name
+    // reduce transform the data.genres array into a single object (genreList), acc (accumulator)
+    // reduce: it goes through all the cards one by one and builds the map; think of acc like a big basket where we’re dropping things. (cavemen language lesgooo)
+    // this is building a fast lookup map for the genrelist that has movieId connected to its name
+  } catch (error) {
+    console.error("Error fetching genre list:", error);
+  }
+}
+
+
 // Fetch and display movies for the current page and search query
 async function fetchMovieDetails() {
   let apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=482c09f3a4a9fe485dce706e8d645d2f`;
@@ -14,13 +42,19 @@ async function fetchMovieDetails() {
 
     const data = await response.json();
 
+    // Map genre IDs to names
+    const genres = data.genres
+      .map((genre) => genreList[genre.id] || "Unknown")
+      .join(", ");
+    //  turning genre IDs into their names and making a nice list to show
+
     document.getElementById("movieTitle").textContent = data.title;
     document.getElementById("moviePoster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
     document.getElementById("movieOverview").textContent = data.overview;
     document.getElementById("releaseDate").textContent = data.release_date;
     document.getElementById("rating").textContent = data.vote_average.toFixed(1) + ' / 10'; 
     // rating rounded to 1 decimal point
-    //document.getElementById("genres").textContent = data.genres;
+    document.getElementById("genres").textContent = genres; // Update genre display
   } catch (error) {
     console.error("Error:", error);
     document.body.innerHTML = `<p>Failed to load movie details.</p>`;
@@ -77,5 +111,6 @@ function displayMovieCards(movieList) {
 }
 
 // Initialize the app
+fetchGenreList(); // Fetch genre list first
 fetchMovieDetails();
 fetchMovieList();
