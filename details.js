@@ -18,7 +18,8 @@ async function fetchMovieDetails() {
     document.getElementById("moviePoster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
     document.getElementById("movieOverview").textContent = data.overview;
     document.getElementById("releaseDate").textContent = data.release_date;
-    document.getElementById("rating").textContent = data.vote_average + " / 10";
+    document.getElementById("rating").textContent = data.vote_average.toFixed(1) + ' / 10'; 
+    // rating rounded to 1 decimal point
     //document.getElementById("genres").textContent = data.genres;
   } catch (error) {
     console.error("Error:", error);
@@ -67,7 +68,7 @@ function displayMovieCards(movieList) {
       <a href = "details.html?movieId=${movie.id}" class = "movie-link"> 
         <h3>${movie.title}</h3>
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"> 
-        <p>Rating: ${movie.vote_average}  / 10 </p>
+        <p>Rating: ${movie.vote_average.toFixed(1)}  / 10 </p>
       </a>
     `; // added a href, so movie card are clickable to the details page
 

@@ -75,7 +75,7 @@ function displayMovieCards(movieList) { // added new name assigned for displayMo
       <a href = "details.html?movieId=${movie.id}" class = "movie-link"> 
         <h3>${movie.title}</h3>
         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"> 
-        <p>Rating: ${movie.vote_average} / 10</p>
+        <p>Rating: ${movie.vote_average.toFixed(1)} / 10</p>
       </a>
     `; // added a href, so movie card are clickable to the details page
     
