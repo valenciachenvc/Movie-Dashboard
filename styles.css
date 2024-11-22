@@ -106,3 +106,39 @@ input[type="text"] {
   width: 200px;
   height: auto;
 }
+
+
+
+
+
+
+/* details page for cast and crew */
+
+#credits {
+  padding: 20px;
+}
+
+.credits-container {
+  margin-bottom: 20px;
+}
+
+#cast, #crew {
+  display: flex; 
+  flex-wrap: wrap; /* Allow items to wrap to the next row if there’s not enough space */
+  gap: 20px; /* Space between items */
+}
+
+.cast-member, .crew-member {
+  width: 150px; /* Adjust width of each item */
+  text-align: center;
+}
+
+.cast-member img, .crew-member img {
+  width: 100px; /* Image size */
+  height: 150px;
+  object-fit: cover; /* Keep aspect ratio */
+}
+
+h3 {
+  margin-bottom: 10px;
+}

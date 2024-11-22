@@ -75,25 +75,26 @@ async function fetchMovieCredits() {
     const data = await response.json();
 
     // Display cast
-    const cast = data.cast.slice(0, 5); // Show top 5 cast members (adjust as needed)
+    const cast = data.cast.slice(0, 5); // Show top 5 cast members
     const castList = document.getElementById("cast");
     cast.forEach((actor) => {
       const castItem = document.createElement("div");
       castItem.classList.add("cast-member");
       castItem.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w200${actor.profile_path}" alt="${actor.name}">
+        <img src="https://image.tmdb.org/t/p/w200${actor.profile_path}" alt="Profile Image of ${actor.name}">
         <p>${actor.name} as ${actor.character}</p>
       `;
       castList.appendChild(castItem);
     });
 
     // Display crew (e.g., director)
-    const crew = data.crew.filter((member) => member.job === "Director"); // Change job as needed
+    const crew = data.crew.filter((member) => member.job === "Director" || "Producer").slice(0, 5); // || is or in javascript
     const crewList = document.getElementById("crew");
     crew.forEach((member) => {
       const crewItem = document.createElement("div");
       crewItem.classList.add("crew-member");
       crewItem.innerHTML = `
+        <img src="https://image.tmdb.org/t/p/w200${member.profile_path}" alt="Profile Image of ${member.name}">
         <p>${member.name} - ${member.job}</p>
       `;
       crewList.appendChild(crewItem);
