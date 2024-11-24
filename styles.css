@@ -32,14 +32,14 @@ body {
   height: 10vh; /* Adjust this height as needed */
 }
 
-.search-container {
+.search-container, .back-container {
   position: relative;
   width: 90%;
   max-width: 500px;
   margin-top: 10px;
 }
 
-.search-container svg {
+.search-container svg, .back-container svg {
   position: absolute;
   top: 50%;
   left: 15px;
@@ -142,14 +142,32 @@ body {
   height: auto;
 }
 
+.back-container {
+  margin-left: 20px;
+  width: 200px;
+  padding: 10px 15px 10px 40px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
-
-
-.back-link {
-  left: 10vh; /* doesnt work yet */
+.back-container:hover {
+  transform: scale(1.05);
 }
 
 
+.details-container strong, .back-link {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.details-container p {
+  text-align: left;
+}
 
 /* details page for cast and crew */
 
