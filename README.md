@@ -1,9 +1,13 @@
 Movie Dashboard
 
+
 Project Overview
+
 The Movie Dashboard app is a web-based application that allows users to explore popular movies, search for specific titles, and view detailed information about each movie. Users can navigate through a list of popular movies, perform keyword searches, and click on individual movie posters to view more comprehensive information, including cast details and similar movie recommendations.
 
+
 Objectives
+
 This project aims to provide users with a visually engaging and informative movie exploration tool. The application demonstrates key web development concepts, including:
 - Fetching data from a public API (The Movie Database API)
 - Navigating between multiple pages
@@ -11,14 +15,18 @@ This project aims to provide users with a visually engaging and informative movi
 - Handling user input with search functionality
 - Implementing error handling and user feedback mechanisms
 
+
 Features
+
 1. Home Page (index.html)
     - Popular Movies: The homepage displays a grid of popular movie posters fetched from TMDb. Users can browse through trending titles and click any movie poster to view more details.
     - Search Bar: A search bar at the top of the page allows users to search for specific movie titles. The results update dynamically as the user types, and a list of matching movies is displayed.
+      
 2. Details Page (details.html)
     - Movie Details: When a user clicks on a movie poster from the home page, they are redirected to a details page. This page displays a range of information about the selected movie, including title, release date, rating, genres, and a synopsis.
     - Cast Information: The details page shows a list of the main cast members for the selected movie, along with their roles and profile images.
     - Recommendations: Users are shown a list of recommended movies based on the selected title. Clicking on a recommended movie will load its details in the same format, allowing for easy exploration of similar movies.
+
 
 Technologies Used
 
