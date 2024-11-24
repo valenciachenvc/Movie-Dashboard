@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700");
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 }
 
 body {
@@ -11,6 +13,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f0f4f8;
+  font-family: "Quicksand", Arial, sans-serif;
 }
 
 .container {
@@ -22,14 +25,45 @@ body {
   border-radius: 8px;
 }
 
-input[type="text"] {
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* Adjust this height as needed */
+}
+
+.search-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  margin-top: 10px;
+}
+
+.search-container svg {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent interaction with the icon */
+  fill: #888; /* Adjust icon color */
+}
+
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 10px 15px 10px 40px; /* Add padding to the left for the icon */
+  border: 1px solid #ddd;
+  border-radius: 9999px;
+  font-size: 16px;
+}
+
+/* input[type="text"] {
   padding: 10px;
   width: 90%;
   max-width: 500px;
   margin-top: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-}
+  border-radius: 9999px;
+} */
 
 .movie-grid {
   display: grid;
@@ -46,6 +80,7 @@ input[type="text"] {
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s;
+  /* width: 28.5vh; */
 }
 
 .movie-card:hover {
@@ -69,7 +104,7 @@ input[type="text"] {
   color: #555;
 }
 
-.movie-link {
+.movie-link, .back-link {
   text-decoration: none; /* Removes the underline */
   color: inherit;        /* Inherits the text color from the parent */
   display: block;        /* Makes the entire card clickable */
@@ -109,6 +144,10 @@ input[type="text"] {
 
 
 
+
+.back-link {
+  left: 10vh; /* doesnt work yet */
+}
 
 
 
