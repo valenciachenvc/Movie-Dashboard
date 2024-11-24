@@ -21,12 +21,18 @@ Features
     - Recommendations: Users are shown a list of recommended movies based on the selected title. Clicking on a recommended movie will load its details in the same format, allowing for easy exploration of similar movies.
 
 Technologies Used
+
 HTML: For creating the page structure and layout.
+
 CSS: For styling the interface, including grid layouts and responsiveness.
+
 JavaScript: For fetching data from TMDb API, handling user interactions, and dynamically updating the content.
+
 TMDb API: A public API that provides access to movie data, including details, images, and recommendations.
 
+
 API Endpoints
+
 Popular Movies: https://api.themoviedb.org/3/movie/popular?api_key={api}
 
 Movie Search: https://api.themoviedb.org/3/search/movie
@@ -37,10 +43,17 @@ Movie Cast and Crew: https://api.themoviedb.org/3/movie/{movie_id}/credits
 
 Movie Recommendations: https://api.themoviedb.org/3/movie/{movie_id}/recommendations
 
+
 Project Structure
+
 project/
+
   ~ index.html     # Home Page
+  
   ~ details.html   # Details Page
+  
   ~ styles.css     # Shared CSS for both pages
+  
   ~ script.css     # Javascript for Home Page
+  
   ~ details.js     # Javascript for Details Page
