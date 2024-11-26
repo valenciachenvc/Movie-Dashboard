@@ -138,8 +138,12 @@ body {
 }
 
 #moviePoster {
-  width: 200px;
+  position: absolute;
+  left: 30px !important;
+  width: 300px;
   height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .back-container {
@@ -169,13 +173,26 @@ body {
   text-align: left;
 }
 
+.details-container {
+  margin-top: 110px;
+  padding-left: 350px;
+}
+
+.details_ {
+  position: absolute;
+  padding-right: 200px;
+  align-content: center;
+}
+
 /* details page for cast and crew */
 
 #credits {
   padding: 20px;
+  margin-top: 500px;
 }
 
 .credits-container {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
